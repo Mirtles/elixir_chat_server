@@ -2,7 +2,8 @@
              [{applications,[kernel,stdlib,elixir,logger,jason,cowboy,plug,
                              plug_cowboy]},
               {description,"chat_server"},
-              {modules,['Elixir.ChatServer','Elixir.ChatServer.Router']},
+              {modules,['Elixir.ChatServer','Elixir.ChatServer.Router',
+                        'Elixir.ChatServer.SocketHandler']},
               {registered,[]},
               {vsn,"0.1.0"},
               {mod,{'Elixir.ChatServer',[]}}]}.

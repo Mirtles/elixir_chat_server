@@ -14,6 +14,7 @@
         document.getElementById("main").append(pTag)
       })
 
+      // if the websocket is closed, this reopens it
       this.socket.addEventListener("close", () => {
         this.setupSocket()
       })
@@ -25,6 +26,7 @@
       const message = input.value
       input.value = ""
 
+      // sends to socket
       this.socket.send(
         JSON.stringify({
           data: { message: message }

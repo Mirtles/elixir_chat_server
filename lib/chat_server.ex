@@ -15,6 +15,7 @@ defmodule ChatServer do
         ]
       ),
       Registry.child_spec(
+        #  will save all pids connected to socket
         keys: :duplicate,
         name: Registry.ChatServer
       )
