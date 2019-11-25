@@ -12,7 +12,8 @@
     <main id="main"></main>
     <br>
     <form>
-      <input id="message" type="text">
+      <input id="name" type="text" placeholder="Name">
+      <input id="message" type="text" placeholder="Message">
       <br>
       <br>
       <input type="submit" value="send" id="button">
