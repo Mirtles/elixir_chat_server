@@ -1,6 +1,6 @@
 # ChatServer
 
-**TODO: Add description**
+Learning Elixir using [this tutorial](https://medium.com/@loganbbres/elixir-websocket-chat-example-c72986ab5778) on Medium by Logan Bresnahan.
 
 ## Installation
 
