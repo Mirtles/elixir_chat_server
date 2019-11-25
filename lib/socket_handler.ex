@@ -9,8 +9,6 @@ defmodule ChatServer.SocketHandler do
   end
 
   def websocket_init(state) do
-    IO.inspect(self())
-
     Registry.ChatServer
     |> Registry.register(state.registry_key, {})
 
@@ -20,6 +18,9 @@ defmodule ChatServer.SocketHandler do
   def websocket_handle({:text, json}, state) do
     payload = Jason.decode!(json)
     message = payload["data"]["message"]
+    name = payload["data"]["name"]
+
+    reply = "#{name} #{message}"
 
     Registry.ChatServer
     |> Registry.dispatch(state.registry_key, fn entries ->
@@ -30,7 +31,7 @@ defmodule ChatServer.SocketHandler do
       end
     end)
 
-    {:reply, {:text, message}, state}
+    {:reply, {:text, reply}, state}
   end
 
   def websocket_info(info, state) do
