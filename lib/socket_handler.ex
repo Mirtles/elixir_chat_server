@@ -4,10 +4,13 @@ defmodule ChatServer.SocketHandler do
 
   def init(request, _state) do
     state = %{registry_key: request.path}
+
     {:cowboy_websocket, request, state}
   end
 
   def websocket_init(state) do
+    IO.inspect(self())
+
     Registry.ChatServer
     |> Registry.register(state.registry_key, {})
 
@@ -19,7 +22,6 @@ defmodule ChatServer.SocketHandler do
     message = payload["data"]["message"]
 
     Registry.ChatServer
-    # makes sure message is sent to all pids connected to socket
     |> Registry.dispatch(state.registry_key, fn entries ->
       for {pid, _} <- entries do
         if pid != self() do
@@ -28,7 +30,6 @@ defmodule ChatServer.SocketHandler do
       end
     end)
 
-    # returns the following
     {:reply, {:text, message}, state}
   end
 

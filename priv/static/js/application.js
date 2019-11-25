@@ -1,15 +1,14 @@
 (() => {
-  const port = 4000
-
-  class chatServerHandler {
+  class myWebsocketHandler {
     setupSocket() {
       // initialises connection to socket
-      this.socket = new WebSocket(`ws://localhost:${port}/ws/chat`)
+      console.log("setting up socket")
+      this.socket = new WebSocket("ws://localhost:4001/ws/chat")
 
       // when a message arrives, a p tag is made and appended to the chat element
       this.socket.addEventListener("message", (event) => {
         const pTag = document.createElement("p")
-        pTag.textContent = event.data
+        pTag.innerHTML = event.data
 
         document.getElementById("main").append(pTag)
       })
@@ -21,6 +20,7 @@
     }
 
     submit(event) {
+      console.log("submitting")
       event.preventDefault()
       const input = document.getElementById("message")
       const message = input.value
@@ -29,14 +29,14 @@
       // sends to socket
       this.socket.send(
         JSON.stringify({
-          data: { message: message }
+          data: { message: message },
         })
       )
     }
   }
 
-  const websocketClass = new chatServerHandler()
+  const websocketClass = new myWebsocketHandler()
   websocketClass.setupSocket()
 
   document.getElementById("button").addEventListener("click", (event) => websocketClass.submit(event))
-})
+})()
